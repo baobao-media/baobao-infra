@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baobao-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baobao-frontend
+  template:
+    metadata:
+      labels:
+        app: baobao-frontend
+    spec:
+      containers:
+        - name: baobao-frontend
+          image: baobaomedia/baobao-frontend:dev
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: baobao-frontend
+spec:
+  selector:
+    app: baobao-frontend
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP
+

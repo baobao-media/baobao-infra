@@ -1,0 +1,6 @@
+resources:
+  - backend.yaml
+  - frontend.yaml
+  - postgres.yaml
+  - secrets.yaml
+

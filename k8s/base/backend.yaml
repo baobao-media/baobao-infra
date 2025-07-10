@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baobao-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baobao-backend
+  template:
+    metadata:
+      labels:
+        app: baobao-backend
+    spec:
+      containers:
+        - name: baobao-backend
+          image: baobaomedia/baobao-backend:dev
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4000
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: baobao-backend
+spec:
+  selector:
+    app: baobao-backend
+  ports:
+    - port: 4000
+      targetPort: 4000
+  type: ClusterIP
+
